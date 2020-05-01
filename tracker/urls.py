@@ -1,7 +1,7 @@
 from django.urls import include, path
-from .views import UserList, UserDetail
+from .views import TrackerList, TrackerDetail
 
 urlpatterns = [
-    path('<int:pk>/', UserDetail.as_view()),
-    path('', UserList.as_view()),
+    path('<int:pk>/', TrackerDetail.as_view()),
+    path('', TrackerList.as_view()),
 ]

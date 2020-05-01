@@ -6,10 +6,13 @@ from .models import Tracker
 from .serializers import TrackSerializer
 
 
-class UserList(generics.ListCreateAPIView):
+class TrackerList(generics.ListCreateAPIView):
     queryset = Tracker.objects.all()
     serializer_class = TrackSerializer
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class TrackerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tracker.objects.all()
     serializer_class = TrackSerializer
