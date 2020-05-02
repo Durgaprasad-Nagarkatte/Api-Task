@@ -30,12 +30,11 @@ class UserList(generics.ListCreateAPIView):
             members.append(info)
             
         return Response(members)
-
-
+"""
+"""
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-
 """
 
 class UserList(APIView):
@@ -43,8 +42,8 @@ class UserList(APIView):
     List all users, or create a new user.
     """
     def get(self, request, format=None):
-        snippets = CustomUser.objects.all()
-        serializer = UserSerializer(snippets, many=True)
+        user = CustomUser.objects.all()
+        serializer = UserSerializer(user, many=True)
         print(type(serializer))
         return Response(serializer.data)
 
@@ -55,13 +54,10 @@ class UserList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    
 
 class UserDetail(APIView):
-    """
-    Retrieve, update or delete a User instance.
-    """
-
+    #Retrieve, update or delete a User instance.
+    
     def get_object(self, pk):
         try:
             return CustomUser.objects.get(pk=pk)
@@ -85,6 +81,8 @@ class UserDetail(APIView):
         user = self.get_object(pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 """
 class UserList(generics.ListCreateAPIView):
     queryset = CustomUser.objects.all()
